@@ -1,135 +1,136 @@
- AI API Integration Assignment
- 
-Hey, this is Sudeeksha T
+ # AI API Integration Assignment
 
-This project is part of my assignment where I explored how to integrate multiple **Generative AI APIs** using Python. The goal was to understand how different AI services work, how to interact with them using code, and how to handle their responses effectively.
+Hey there!  I'm Sudeeksha T, and this is my submission for the AI API Integration assignment.
 
+For this project, I explored how different Generative AI services can be integrated using Python. Instead of working with just one API, I implemented multiple providers to understand how each of them works and how their responses differ. This helped me get a clearer picture of how real-world applications interact with AI systems.
 
+---
 
- Overview
+## What I Built
 
-In this project, I have implemented separate Python scripts for different AI providers. Each script takes user input, sends it to the respective API, and displays the generated response.
-This helped me understand how real-world applications communicate with AI systems.
+I created separate Python scripts for the following AI providers:
 
+1. **OpenAI** – for conversational AI responses  
+2. **Groq** – for fast LLM inference  
+3. **Ollama** – to run LLaMA 3 locally on my system  
+4. **Hugging Face** – using open-source models  
+5. **Google Gemini** – for text generation  
+6. **Cohere** – for NLP-based responses  
 
- Objective
+Each script takes user input, sends it to the respective API, and prints the generated response.
 
-The main objectives of this assignment were to:
+---
 
-* Understand how AI APIs work
-* Learn how to send requests and process responses
-* Work with multiple AI providers
-* Follow secure practices like storing API keys safely
+## Project Structure
 
-
-
- APIs Used
-
-The following AI providers have been integrated:
-
-* OpenAI
-* Groq
-* Ollama (local model)
-* Hugging Face
-* Google Gemini
-* Cohere
-
-Each provider is implemented in a separate Python file for clarity.
-
-
-
- Project Structure
-
-
+```
 AI-API-Integration/
-│
+├── .env
+├── .gitignore
 ├── openai_example.py
 ├── groq_example.py
 ├── ollama_example.py
 ├── huggingface_example.py
 ├── gemini_example.py
 ├── cohere_example.py
-│
 ├── requirements.txt
 ├── README.md
 └── screenshots/
 ```
 
+---
 
+## How to Set It Up
 
- Installation
+### 1. Prerequisites
 
-1. Clone the repository:
+- Python 3.8 or above  
+- API keys for:
+  - OpenAI  
+  - Groq  
+  - Hugging Face  
+  - Google Gemini  
+  - Cohere  
+- Ollama installed (for local model)
 
-git clone https://github.com/YOUR-USERNAME/AI-API-Integration.git
-cd AI-API-Integration
+---
 
+### 2. Installation
 
-2. Install dependencies:
+```
+python -m venv venv
+```
 
+Activate environment:
+
+- Windows:
+```
+venv\Scripts\activate
+```
+
+- Mac/Linux:
+```
+source venv/bin/activate
+```
+
+Install dependencies:
+
+```
 pip install -r requirements.txt
+```
 
+---
 
- Environment Variables
+### 3. API Keys Setup
 
-To keep API keys secure, I used environment variables instead of hardcoding them.
+Create a `.env` file:
 
- Windows:
+```
+OPENAI_API_KEY=your_openai_key
+GROQ_API_KEY=your_groq_key
+HF_API_KEY=your_huggingface_key
+GOOGLE_API_KEY=your_gemini_key
+COHERE_API_KEY=your_cohere_key
+```
 
-set OPENAI_API_KEY=your_key
-set GROQ_API_KEY=your_key
-set HF_API_KEY=your_key
-set GOOGLE_API_KEY=your_key
-set COHERE_API_KEY=your_key
+---
 
+## Running the Code
 
- Mac/Linux:
+Run any file:
 
-export OPENAI_API_KEY=your_key
-export GROQ_API_KEY=your_key
-export HF_API_KEY=your_key
-export GOOGLE_API_KEY=your_key
-export COHERE_API_KEY=your_key
-
-
-How to Run
-
-Run any Python file:
-
+```
 python openai_example.py
+```
 
-Then enter a prompt, and the response will be displayed.
+---
 
+## Output
 
- Output
+Screenshots are available in the `screenshots/` folder.
 
-Screenshots of outputs from all APIs are included in the `screenshots/` folder.
+---
 
+## What I Learned
 
+- Working with multiple AI APIs  
+- Differences between providers  
+- Secure API key handling  
+- Real-world API integration  
 
- Features
+---
 
-* Takes user input
-* Sends requests to different AI APIs
-* Displays responses clearly
-* Includes error handling
-* Uses secure API key storage
+## Challenges Faced
 
+- Understanding different API structures  
+- Fixing model errors  
+- Setting up Ollama  
+- Managing API keys securely  
 
+---
 
- What I Learned
+## Conclusion
 
-* How to integrate multiple AI APIs
-* Differences between various AI providers
-* Importance of secure coding practices
-* Practical understanding of API-based applications
+This project helped me understand how AI APIs are used in real-world applications and improved my practical coding skills.
 
-
-
-Conclusion
-
-This assignment gave me hands-on experience with Generative AI APIs and helped me understand how they can be used in real-world applications.
-
-
-
-
+---
