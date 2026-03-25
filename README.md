@@ -10,12 +10,11 @@ For this project, I explored how different Generative AI services can be integra
 
 I created separate Python scripts for the following AI providers:
 
-1. **OpenAI** – for conversational AI responses  
-2. **Groq** – for fast LLM inference  
-3. **Ollama** – to run LLaMA 3 locally on my system  
-4. **Hugging Face** – using open-source models  
-5. **Google Gemini** – for text generation  
-6. **Cohere** – for NLP-based responses  
+1. **Groq** – for fast LLM inference  
+2. **Ollama** – to run LLaMA 3 locally on my system  
+3. **Hugging Face** – using open-source models  
+4. **Google Gemini** – for text generation  
+5. **Cohere** – for NLP-based responses  
 
 Each script takes user input, sends it to the respective API, and prints the generated response.
 
