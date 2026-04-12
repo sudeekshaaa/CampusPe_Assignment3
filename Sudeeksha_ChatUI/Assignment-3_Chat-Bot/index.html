@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Chat UI</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Mobile Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <div class="d-flex h-100 chat-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar d-flex flex-column p-2 p-md-3" id="sidebar">
+            <div class="d-flex justify-content-between align-items-center mb-4 mt-2 px-2">
+                <button class="btn btn-sidebar-new w-100 text-start border rounded-3 py-2 fw-medium" id="new-chat-btn">
+                    <i class="fa-solid fa-plus me-2"></i> New chat
+                </button>
+                <button class="btn btn-link text-body d-md-none ms-2" id="close-sidebar">
+                    <i class="fa-solid fa-xmark fs-5"></i>
+                </button>
+            </div>
+            <div class="flex-grow-1 overflow-auto chat-history px-2">
+                <h6 class="text-white-50 text-uppercase mb-3" style="font-size: 0.75rem; font-weight: 600;">Recent</h6>
+                <ul class="list-unstyled" id="history-list">
+                    <!-- Chat history dynamically added here -->
+                    <li class="history-item border-0 d-flex justify-content-between align-items-center">
+                        <div class="text-truncate flex-grow-1"><i class="fa-regular fa-message me-3 text-secondary"></i> Understanding React Hooks</div>
+                        <button class="btn btn-link p-0 text-secondary delete-chat" title="Delete chat"><i class="fa-solid fa-trash-can" style="font-size: 0.8rem;"></i></button>
+                    </li>
+                    <li class="history-item border-0 d-flex justify-content-between align-items-center">
+                        <div class="text-truncate flex-grow-1"><i class="fa-regular fa-message me-3 text-secondary"></i> Explain Quantum Computing</div>
+                        <button class="btn btn-link p-0 text-secondary delete-chat" title="Delete chat"><i class="fa-solid fa-trash-can" style="font-size: 0.8rem;"></i></button>
+                    </li>
+                </ul>
+            </div>
+            <div class="sidebar-footer mt-auto pt-3 border-top border-secondary px-2 mb-2">
+                <div class="d-flex justify-content-between align-items-center mb-3 text-white-50">
+                    <span class="fs-6"><i class="fa-regular fa-moon me-3 text-secondary"></i> Dark Mode</span>
+                    <div class="form-check form-switch m-0">
+                        <input class="form-check-input shadow-none" type="checkbox" id="darkModeToggle" checked>
+                    </div>
+                </div>
+                <button class="btn btn-link text-white-50 text-decoration-none w-100 text-start p-0 m-0" id="export-chat-btn">
+                    <span class="fs-6"><i class="fa-solid fa-download me-3 text-secondary"></i> Export Chat</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content flex-grow-1 d-flex flex-column h-100 w-100 position-relative">
+            <!-- Top Header -->
+            <header class="pt-3 pb-2 px-3 ps-md-4 d-flex align-items-center flex-shrink-0 sticky-top w-100" style="background-color: var(--bg-main); z-index: 10;">
+                <button class="btn btn-link text-body p-0 d-md-none me-3" id="open-sidebar">
+                    <i class="fa-solid fa-bars fs-5"></i>
+                </button>
+                
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle fw-semibold fs-5 d-flex align-items-center border-0 p-0 shadow-none bg-transparent" style="color: var(--text-primary);" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="current-model-btn">
+                        ChatGPT (OpenAI) <span class="ms-2 mt-1 fs-6 text-muted"><i class="fa-solid fa-chevron-down"></i></span>
+                    </button>
+                    <!-- Hide default caret and use custom chevron for style -->
+                    <style>.dropdown-toggle::after { display: none; }</style>
+                    <ul class="dropdown-menu shadow mt-2 border-1" style="border-radius: 12px; background-color: var(--card-bg);">
+                        <li><h6 class="dropdown-header">Select Model</h6></li>
+                        <li><a class="dropdown-item model-option active fw-medium" href="#" data-model="ChatGPT (OpenAI)">ChatGPT (OpenAI)</a></li>
+                        <li><a class="dropdown-item model-option fw-medium" href="#" data-model="Google Gemini">Google Gemini</a></li>
+                        <li><a class="dropdown-item model-option fw-medium" href="#" data-model="Ollama">Ollama</a></li>
+                        <li><a class="dropdown-item model-option fw-medium" href="#" data-model="Groq">Groq</a></li>
+                        <li><a class="dropdown-item model-option fw-medium" href="#" data-model="Hugging Face">Hugging Face</a></li>
+                        <li><a class="dropdown-item model-option fw-medium" href="#" data-model="Cohere">Cohere</a></li>
+                    </ul>
+                </div>
+            </header>
+
+            <!-- Chat Area -->
+            <section class="chat-area flex-grow-1 overflow-auto p-0 d-flex flex-column align-items-center" id="chat-container">
+                <!-- Welcome Screen -->
+                <div class="welcome-screen my-auto text-center w-100 px-3" id="welcome-screen" style="max-width: 800px;">
+                    <div class="welcome-icon mb-4">
+                        <div class="d-inline-flex justify-content-center align-items-center rounded-circle gradient-icon-bg" style="width: 68px; height: 68px;">
+                            <i class="fa-solid fa-bolt fs-2 text-white"></i>
+                        </div>
+                    </div>
+                    <h2 class="fw-bold mb-5 text-gradient" style="font-size: 2.5rem; letter-spacing: -0.02em;">How can I help you today?</h2>
+                    
+                    <div class="container mt-4 px-0">
+                        <div class="row g-3 justify-content-center suggestion-cards">
+                            <div class="col-12 col-md-6">
+                                <div class="card h-100 suggestion-card" data-prompt="How do transformers work? Explain the architecture behind modern large language models">
+                                    <div class="card-body text-start">
+                                        <h6 class="card-title fw-semibold mb-1">How do transformers work?</h6>
+                                        <p class="card-text text-muted small mb-0">the architecture behind modern AI</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="card h-100 suggestion-card" data-prompt="Explain prompt engineering techniques to get better AI responses">
+                                    <div class="card-body text-start">
+                                        <h6 class="card-title fw-semibold mb-1">Prompt engineering tips</h6>
+                                        <p class="card-text text-muted small mb-0">techniques for better AI responses</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="card h-100 suggestion-card" data-prompt="What is RAG? Explain Retrieval-Augmented Generation and how it improves LLMs">
+                                    <div class="card-body text-start">
+                                        <h6 class="card-title fw-semibold mb-1">What is RAG?</h6>
+                                        <p class="card-text text-muted small mb-0">Retrieval-Augmented Generation explained</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="card h-100 suggestion-card" data-prompt="How do you fine-tune large language models? Explain techniques and best practices">
+                                    <div class="card-body text-start">
+                                        <h6 class="card-title fw-semibold mb-1">Fine-tuning LLMs</h6>
+                                        <p class="card-text text-muted small mb-0">adapting models to your needs</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Messages will be appended here -->
+                <div class="messages-wrapper w-100 px-3 py-4" style="max-width: 800px;" id="messages-wrapper"></div>
+                
+                <!-- Typing Indicator (Hidden by default) -->
+                <div class="typing-indicator-container w-100 px-3 mb-5 d-none" style="max-width: 800px;" id="typing-indicator">
+                    <div class="d-flex align-items-start">
+                        <div class="avatar ai-avatar rounded-circle me-3 d-flex justify-content-center align-items-center text-white">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <div class="message-bubble ai-bubble p-0 d-flex align-items-center" style="min-height: 32px;">
+                            <div class="typing-icon"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Empty div for bottom padding so input doesn't overlap messages -->
+                <div style="height: 120px; width: 100%; flex-shrink: 0;"></div>
+            </section>
+
+            <!-- Input Area -->
+            <div class="input-area w-100 position-absolute bottom-0 start-50 translate-middle-x px-3" style="max-width: 800px;">
+                <div class="position-relative">
+                    <!-- Attachment Preview Floating Container -->
+                    <div id="attachment-preview" class="d-flex gap-2 flex-wrap position-absolute w-100 px-2" style="bottom: 100%; margin-bottom: 8px; z-index: 10;"></div>
+                    
+                    <textarea 
+                        class="form-control" 
+                        id="chat-input" 
+                        rows="1" 
+                        placeholder="Message AI..." 
+                        style="resize: none; overflow-y: hidden;"
+                    ></textarea>
+                    
+                    <input type="file" id="file-upload" class="d-none" multiple>
+                    <button class="btn text-secondary position-absolute bottom-0 start-0 mb-1 ms-2 d-flex justify-content-center align-items-center bg-transparent border-0" style="height: 40px; width: 40px;" id="attach-btn" title="Add attachment">
+                        <i class="fa-solid fa-paperclip fs-5"></i>
+                    </button>
+                    
+                    <button class="btn btn-primary rounded-circle position-absolute bottom-0 end-0 mb-2 me-2 d-flex justify-content-center align-items-center" style="width: 34px; height: 34px;" id="send-btn" disabled>
+                        <i class="fa-solid fa-arrow-up"></i>
+                    </button>
+                </div>
+                <div class="text-center mt-2 disclaimer-text">
+                    AI can make mistakes. Verify important information.
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/chat.js"></script>
+</body>
+</html>
